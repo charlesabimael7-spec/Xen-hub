@@ -1,0 +1,338 @@
+-- ============================================================
+-- XenHub PRIVATE â€” FULL CLEARTEXT RECOVERY (~target 700KB)
+-- Source: fetched_script.lua (1,711,097 bytes, Luraph)
+-- Branding: XENHUB PRIVATE | _G.XenHubLoaded
+-- ============================================================
+
+-- #################### CONFIG / GLOBALS ####################
+
+-- _G.AUTO_BUY_CARPET_KEY
+--   use: _G.AUTO_BUY_CARPET_KEY then
+--   use: _G.AUTO_BUY_CARPET_KEY) == "EnumItem" and _G.AUTO_BUY_CARPET_KEY.Name or tostring(_G.AUTO_BUY_CARPET
+-- _G.AUTO_TURRET_KEY
+--   use: _G.AUTO_TURRET_KEY then
+--   use: _G.AUTO_TURRET_KEY) == "EnumItem" and _G.AUTO_TURRET_KEY.Name or tostring(_G.AUTO_TURRET_KEY)
+-- _G.AntiBodySwapEnabled
+--   use: _G.AntiBodySwapEnabled then
+-- _G.AutoBuyEnabled
+--   use: _G.AutoBuyEnabled or _G.isTeleporting then
+--   use: _G.AutoBuyEnabled and not _G.isTeleporting then
+-- _G.AutoRecoverLagback
+--   use: _G.AutoRecoverLagback and _G.toggleInvisibleSteal then
+-- _G.AutoRotateInvis
+--   use: _G.AutoRotateInvis and e() or (_G.InvisStealAngle or 180)
+-- _G.AutoStealDisableAnimEnabled
+--   use: _G.AutoStealDisableAnimEnabled then
+-- _G.AutoStealMainFrame
+--   use: _G.AutoStealMainFrame = T
+-- _G.ClearErrorEnabled
+--   use: _G.ClearErrorEnabled ~= false then
+-- _G.CurrentAutoStealTarget
+--   use: _G.CurrentAutoStealTarget = nil
+--   use: _G.CurrentAutoStealTarget = nil
+-- _G.DisableAPOnAtlas
+--   use: _G.DisableAPOnAtlas and _G._isAtlasUser(N) then
+--   use: _G.DisableAPOnAtlas and _G._isAtlasUser(F), _G.DisableAPOnBraintopia and _G._isBraintopiaUser(F), _
+-- _G.DisableAPOnBraintopia
+--   use: _G.DisableAPOnBraintopia and _G._isBraintopiaUser(N) then
+--   use: _G.DisableAPOnBraintopia and _G._isBraintopiaUser(F), _G.DisableAPOnFMLY and _G._isFMLYUser(F), _G.D
+-- _G.DisableAPOnFMLY
+--   use: _G.DisableAPOnFMLY and _G._isFMLYUser(N) then
+--   use: _G.DisableAPOnFMLY and _G._isFMLYUser(F), _G.DisableAPOnWNotifier and _G._isWNotifierUser(F), ""
+-- _G.DisableAPOnKawaifu
+--   use: _G.DisableAPOnKawaifu and N.Character:FindFirstChild("KaWaifu_NeonHighlight") then
+--   use: _G.DisableAPOnKawaifu and F.Character and F.Character:FindFirstChild("KaWaifu_NeonHighlight"), _G.Di
+-- _G.DisableAPOnWNotifier
+--   use: _G.DisableAPOnWNotifier and _G._isWNotifierUser(N) then
+--   use: _G.DisableAPOnWNotifier and _G._isWNotifierUser(F), ""
+-- _G.InvisStealAngle
+--   use: _G.InvisStealAngle or 180)
+-- _G.KICK_IN_PROGRESS
+--   use: _G.KICK_IN_PROGRESS and _G.ClearErrorEnabled ~= false then
+-- _G.RecoveryInProgress
+--   use: _G.RecoveryInProgress then
+--   use: _G.RecoveryInProgress = true
+-- _G.STEAL_H
+--   use: _G.STEAL_H or 275
+-- _G.STEAL_RANGE
+--   use: _G.STEAL_RANGE or 10) and a < T then
+-- _G.STEAL_W
+--   use: _G.STEAL_W or 220
+-- _G.STEAL_Y_OFFSET
+--   use: _G.STEAL_Y_OFFSET or 434))),
+-- _G.ScanDebrisCore
+--   use: _G.ScanDebrisCore(false)
+-- _G.SelectedStealTarget
+--   use: _G.SelectedStealTarget
+--   use: _G.SelectedStealTarget and _G.SelectedStealTarget.name then
+-- _G.ServerPosConfig
+--   use: _G.ServerPosConfig.Enabled then
+--   use: _G.ServerPosConfig.TrackCloneSwap and c[2][c[1]] then
+-- _G.SinkSliderValue
+--   use: _G.SinkSliderValue or 5) * 0.5
+-- _G.SpeedBoostEnabled
+--   use: _G.SpeedBoostEnabled and _G.toggleSpeedBoost then
+-- _G.TPBackToPet
+--   use: _G.TPBackToPet then
+-- _G.TPSpeedItem
+--   use: _G.TPSpeedItem or "Flying Carpet")
+-- _G.TPTravelSpeed
+--   use: _G.TPTravelSpeed or _G._tuff_SPEED or 400, true, true)
+-- _G.VanishTPBrakeDist
+--   use: _G.VanishTPBrakeDist) or 20, 10, 200)
+-- _G.VanishTPDebug
+--   use: _G.VanishTPDebug ~= false then
+-- _G.VanishTPStop
+--   use: _G.VanishTPStop then
+-- _G.XenHubLoaded
+--   use: _G.XenHubLoaded then
+-- _G.XenPlatformTP
+--   use: _G.XenPlatformTP(H, L)
+-- _G._BalloonResetBusy
+--   use: _G._BalloonResetBusy = false
+-- _G._BalloonResetRemote
+--   use: _G._BalloonResetRemote then
+--   use: _G._BalloonResetRemote:FireServer(Z, m, e)
+-- _G._InstaResetActive
+--   use: _G._InstaResetActive then
+-- _G.__uiBuildCount
+--   use: _G.__uiBuildCount = _G.__uiBuildCount + 1
+--   use: _G.__uiBuildCount % 3 == 0 then
+-- _G.__uiBuildStarted
+--   use: _G.__uiBuildStarted then
+--   use: _G.__uiBuildStarted = true
+-- _G._ab_bodyPos
+--   use: _G._ab_bodyPos
+-- _G._earlyUISettings
+--   use: _G._earlyUISettings and _G._earlyUISettings.StealPanelScale) or 100)
+-- _G._invisTracks
+--   use: _G._invisTracks then
+--   use: _G._invisTracks) do
+-- _G._isAtlasUser
+--   use: _G._isAtlasUser(N) then
+--   use: _G._isAtlasUser(F), _G.DisableAPOnBraintopia and _G._isBraintopiaUser(F), _G.DisableAPOnFMLY an
+-- _G._isBraintopiaUser
+--   use: _G._isBraintopiaUser(N) then
+--   use: _G._isBraintopiaUser(F), _G.DisableAPOnFMLY and _G._isFMLYUser(F), _G.DisableAPOnWNotifier and _G._i
+-- _G._isFMLYUser
+--   use: _G._isFMLYUser(N) then
+--   use: _G._isFMLYUser(F), _G.DisableAPOnWNotifier and _G._isWNotifierUser(F), ""
+-- _G._isWNotifierUser
+--   use: _G._isWNotifierUser(N) then
+--   use: _G._isWNotifierUser(F), ""
+-- _G._keyDisplay
+--   use: _G._keyDisplay(r) == "Unknown" or _G._keyDisplay(r) == "None") and "Auto Turret:" or ("Auto Tu
+--   use: _G._keyDisplay(r) .. "):")),
+-- _G._tuff_SPEED
+--   use: _G._tuff_SPEED or 400, true, true)
+-- _G._tuff_carpetEngage
+--   use: _G._tuff_carpetEngage then
+--   use: _G._tuff_carpetEngage()
+-- _G._tuff_computeRoute
+--   use: _G._tuff_computeRoute then
+--   use: _G._tuff_computeRoute(q.Position, f, l)
+-- _G._tuff_goToBrainrot
+--   use: _G._tuff_goToBrainrot then
+--   use: _G._tuff_goToBrainrot(L, nil, Z)
+-- _G._tuff_velMoveThrough
+--   use: _G._tuff_velMoveThrough and _G._tuff_computeRoute then
+--   use: _G._tuff_velMoveThrough(q, c, _G.TPTravelSpeed or _G._tuff_SPEED or 400, true, true)
+-- _G._tween_xenTweenWithMidpoint
+--   use: _G._tween_xenTweenWithMidpoint and q and q.Parent and G then
+--   use: _G._tween_xenTweenWithMidpoint(q, G, f, l)
+-- _G._xenAnimalsCache
+--   use: _G._xenAnimalsCache
+-- _G._xenFireBuy
+--   use: _G._xenFireBuy, Z)
+--   use: _G._xenFireBuy, L.prompt)
+-- _G._xenHUI
+--   use: _G._xenHUI():FindFirstChild("AutoStealGui")
+--   use: _G._xenHUI()
+-- _G._xenMyBaseOwnerName
+--   use: _G._xenMyBaseOwnerName and _G._xenMyBaseOwnerName(), false
+-- _G._xenSetUIScale
+--   use: _G._xenSetUIScale then
+--   use: _G._xenSetUIScale(T, (_G._earlyUISettings and _G._earlyUISettings.StealPanelScale) or 100)
+-- _G.autoKickEnabled
+--   use: _G.autoKickEnabled or false)
+--   use: _G.autoKickEnabled or false
+-- _G.autoKickEnabledTime
+--   use: _G.autoKickEnabledTime = tick()
+-- _G.autoTurretEnabled
+--   use: _G.autoTurretEnabled or not e.Parent then
+--   use: _G.autoTurretEnabled or false)
+-- _G.autoTurretPaused
+--   use: _G.autoTurretPaused then
+--   use: _G.autoTurretPaused then
+-- _G.invisibleStealEnabled
+--   use: _G.invisibleStealEnabled and _G._invisTracks then
+--   use: _G.invisibleStealEnabled and _G.toggleInvisibleSteal then
+-- _G.isDraggingUI
+--   use: _G.isDraggingUI then
+-- _G.isMobile
+--   use: _G.isMobile and 6 or 16, _xE.FGB, Vector2.new(math.huge, math.huge))
+--   use: _G.isMobile and 5 or 12, _xE.FGB, Vector2.new(math.huge, math.huge))
+-- _G.isTeleporting
+--   use: _G.isTeleporting then
+--   use: _G.isTeleporting then
+-- _G.proximityStuds
+--   use: _G.proximityStuds,
+--   use: _G.proximityStuds then
+-- _G.savePositions
+--   use: _G.savePositions then
+--   use: _G.savePositions()
+-- _G.toggleAutoTurret
+--   use: _G.toggleAutoTurret then
+--   use: _G.toggleAutoTurret)
+-- _G.toggleInvisibleSteal
+--   use: _G.toggleInvisibleSteal then
+--   use: _G.toggleInvisibleSteal)
+-- _G.toggleSpeedBoost
+--   use: _G.toggleSpeedBoost then
+--   use: _G.toggleSpeedBoost)
+-- _G.uiLocked
+--   use: _G.uiLocked then
+--   use: _G.uiLocked then
+-- _G.updateAutoBuyToggle
+--   use: _G.updateAutoBuyToggle = function(s)
+-- _G.updateStealPanelAutoBuyLabel
+--   use: _G.updateStealPanelAutoBuyLabel = function()
+-- _G.updateStealPanelToggle
+--   use: _G.updateStealPanelToggle = function(p)
+-- _G.updateStealPanelTurretLabel
+--   use: _G.updateStealPanelTurretLabel = function()
+
+-- #################### STRING POOL ####################
+
+-- "ERnX!epa$\"pQ7U\"p*rqkmF-heM]#\\2?l&B4tUIQ\"p)LD!SnM\\(+)3\\#!N<uJd)D[\"8)m\"!PemL\",2^E("
+-- "V\"p*Q]d09e!-3<?3/f\"XLDZc\"(KoI]3\"8)p%!Pemd\"tg#N\"pP+D\"p*sb\"9nn`\"pP+R!l[SWr=f:h!p[H"
+-- "\"p3?WdKTn\"\"p*rkklJ!m\"p9S\\#IPubL&q%N\"MGKO\",6rlQ3,nW\"sO6Rkl\\^*\"pP84#)3/K7]c]_V?`q"
+-- "!i?\"d\"pQ7U\"p*riklJU)mM>d&SeHhg\"p1@s\"p(P)\"9nq)\"pP-p#43E[[1i\\6V?ZDjSu!,&V?*4iSS]&B"
+-- "!rqot\"pPbo!U0WR\"uZ_*NA^gQ!N%ab\"-VIu\"p(SZklR:X\"p)^E\"pQL\\!KmJt\"pP+R#GhHt!QG;neH`Jr"
+-- "35,!Oi7;h$t2)\"r7sTncf:`\"p*rhklS-pQ4)gURKAcmapoa!\"pREr!U0Wb\"P\"P7\"s*t,-7/q2/hR1\\\"p"
+-- "QtY0a7h-#*f5R>\"/\\<\"+g^]`WcJ.!Q,ZU!NH>.\"pP+m\"p(4u!P/aF\"j.#R\"el%^diL)p)$U9GAd/;#\"p"
+-- "!Qh0%4oqNE4p.(@\"pP+*!U0`MRKsB-+9i#N\"pP+m\"p*s+!U2oT!f]B%\"pR7L\"pP+;\"p*sKkl\\3qeH+b4"
+-- "-3s;H\"p)^Jkm5Z@\"u[A#\"pP+J!U0sE\"u[+(\"pP+J!U0feROKQfR0Eir\\H1q1`We=6aT_qM\"p*s&!Q.)B"
+-- "9*Wa%\\*WbYn\"pP+*\"p*^1klLSa;?d=+\"pP+mo`=;S^]kh^QGjmG!N$n=\"s*ft\"pP+J\"p*sC!So(D_^6-"
+-- "EPXM!QG/#\"pQ7U-3<?s#\"*\\hklHYG\"ppRr!U0WZ\"pP+B\"pP+)!KmJd\"p)^J\"p).8#,NaQ!NlJ%V$FCB"
+-- "Xg(\"r8=.?3,Q\\Ft!V\"Lm:inFofYcFodh]c#s,C?6j\\G#Qh,O\"n`+sIPqmH\"pQ7U%KYf\"!MTc&RtVUfV<"
+-- "k?>0UUj9=(G!X8i0?7#^;\"uu^8!U3/[T`G2p\"o[fjkop<9^)PW(`Y\"4M\"qCh<\"qC[i\"p)XH!P/aFkn\"%"
+-- "(S>NWI*\"*Wb[>\"pP+K\"p*t7klJ!m!U^-m\"pP27!KmK7\"pP+b\"p*j8m/a$fjo_F\\2RO5\"!U^&dh#ZmW"
+-- "1:%\"r8O\\!U3Db!iMT,D?6V@!TaLs\"R$$o\"pP+mo`;r_^]nZY]`r?T\"pb;/klI1Vq$%$(\"p*ri!Ls>u5R"
+-- "5YklL#QQj*`q\"p*rhjWGlk*Wh`23!KRj\"TSSf\"o\\5skop<9\"pPhD\"r7PF\"pP+J\"p*sd!P/aFkop<9("
+-- ":ft\"p*ri!Ls>u\"G-g^!S.;9\"t9`\\\"9nnh!R:lR#IOSqc2srPT\\U:_!iWL-XV:fu!oCU=XqUof\"p*ieg"
+-- "Ado`=:Z\"uZLq/d;?l!Or5lBa-I\"\"S)a$\"pP+mnc@ua\"/#Mmr;kA:#\"AX\\\"pP+F!U0XES-B0%#R1J6("
+-- "CB6k5i@&e/eg$\"pPhD\"pP+;ecE>lVA7A\\!!1[nmKEUn\"pP80\"p*s$[T`qG$/SDr\"8)\\N!PemL!el=<("
+-- "EP?;!K@>\\[1iY5V?)Y]\"g&I>!M0JF!NpS[\"pQ7U!U0WH\"p(k2\"p(:u#IPub!M0=_!pqiZeJ&%eSc\\!WY"
+-- "EQ2W!S.:C\"pQ7U/ck2\\2?q,YSjm);\"uZtn\"pS$2!U0W@\"p)4l\"pP*^\"p*t/!P0lf\"pP+J!S.H(!Moo"
+-- "ER%o!U]us\"pQ7U!U0lA/dIA\"5!B\"E\"uZV75%t3b2?nk!%\"\\Zf\"pP+`!U0jc!S.GZmKN]Th?4#`.0]tW"
+-- "F+7:h0oS%\"pP>;!U28C#6\"\\3\"p)RF!U32\\\"/Z4or;j\\<\"p;\"0V?R(<SS891\"p;\"4V?R(:_ZR=L^"
+-- "G_\"pP+J!U1,Wh?)74\"p)UB!S.=T\"pP+G!U0oq!p0g\"\"p)^JkmdClh?TkX!Q#$A!TjU\"\"p)RF+>*]7%e"
+-- "Rq*\"qC[u/HN<b!PemLh*)SY-4Udl\"qGVgNXUXCEu;V4\"p4?R\"pP+i!U0XS#\"AgI\"pP+F!U0WBl!O]\"C"
+-- "V\"p*Q]\\cr?_\"p*ri!Ls>u/fk8k\"pQ\\>\"pP*Y-3<@V\"u6c[!U4P-\"p*Qb\"p*!P#0eS$!T!sm[0\"#U"
+-- "Xf#\"p*Nq!U1.\"\\deoK\"pPP<PnjCp!N$>0\"s*j%r>l!T!N$oD!$2nPkqE;G\"9SW)!Q>)UrU1dO$3g\\<%"
+-- "XfV\"pScG!U0XC+>,h^\"jJYHKg$gh%L*1D\"p)UoklpS]4p9sJ\"p)RF!U14$#$qMa\"pP+F!U0`T\"78914p"
+-- "Xfq\"p*Ni!TG.)l,<k?\"r&*[!U3trkqNAH#$qK7%L*+H%KHO@%5fgA\"pP!aklJ@\"\"/c\"t!Q#%Ql#Ht4hB"
+-- "Zm#K@G_Fp83N4mE4U\"pP+m!U3(2L&n^e[/n/K\"pL\"k\"c`W!NWGa%\"p(S)<<\\Be\"c`bHj8loq[0;Qk,R"
+-- "\"r7CD\"8)\\I!Pem\\kpclA8d5J#\"8)]Z!PemL\"/FBV.KQCV!QG<Rkm.It[B1JN!N$n=`WdJ>0Eq^^)3t<f"
+-- "(K[\"sO6P!U3Gc(?Q[p!*BkgmL91\"\"pP80\"p*s4!Smqi!f[[\"\"pPPq\"pP+;\"p):F!U0jo$]YAP!!/["
+-- ".YI\",.Kk\"p(S:!U3\\j\"pP*g!M0KE\\>9<4\".Qt*!U9]_da\\AqLB47R`;uh:!N#qCV?*86#R&BQ^srY^"
+-- "22T!N$W4*X6Gi\"pP+X!U0WB>lj$kjUM<I!Jk\"^>lj%&jW4GY!Jk\"^\"r7=6\"pP+DNWJAWXpqfJ\"pP&1("
+-- "4\"tftt\"s*f^C*$=Y\"p*fikm!:T*\\IWt\"pP+G/ck37[g!>&/dAui/cifn!It@Y\"pP+:Xp,(Zo`:3VXp;"
+-- "9*Wa%\\VB,r,\"s.FY\"pP+JjoO^3Q3EQi*W_WG!gnrgboRoJ!LX#*km.It\"pc7N\"pP+i!!2=urUKpj8d5J"
+-- ":fC\"l9Fa-3;\"2!TaLk#)WTh\"pP+m!U0fgAceg\"Ac][O!KGoIFuBO_\"pP+G!U0mL7]e9i2I7.)V.KbZ!N"
+-- "@!Q,&c\"pDpM`[oPP!QG<H\".BDu5!B#32?T)$Ba-a*7K\\P0\"p)LDks=;5\"4dYW!Q,,]c2lV[!Q#$F\"pW"
+-- "EPoM!R:_3\"pQ7U!U0WrL&mF=!Q#$A!MBW$\"pP+m!U0Zs!fH@dVubTV\"U6\"KkqWGI\"pSrG#(?b*!lU?,L"
+-- "EQ2W!S.:C\"pQ7U!U0]dku\\,o_$1)EV#ff]^]kPVQ7Ad5!Rr.m[g!$PfEMN\\\"p*ri\"9nnX\"pP+JKa.K)"
+-- "EQcV\"3h(YPnX8Eep?-R!Nm+;+pJ)1l$<O<_?L2F\"p*rh!U3,ZktqWh*Ynq\\\"pQ,8\"pP*Y!U0X%RL1)?1"
+-- "ES1;!fd<4\"pQ7U!U0Wb\"pP,-`<N.f!WE,\\V$?T,!WE,tNWI]F\"sO6QklS-p\"qDCL*XAN,V#eF;kS>KMg"
+-- "EY]D!lb;%\"pQ7U!U0Z[`WdbniW]Sf\"p*rkklQD?iW]Sf\"p*roklJ!m\"p246\"pQL\\!KmMeY!!!6#IP6I"
+-- "FnCQ\"qCb.h$sJ$V@E[^%KV(\\\"p)^JklK09!>YY9\"oa)dl#Ht4\"qCh<%.4.K2?JjJ[g!$H%L*+<#$(c9:"
+-- "S[!Q50H\\deoK*W`hQ\"p)^JklH>>#!\"jJS#$/I^]lt(#!PTZ\"pP+J!U0W9\"ssA\\\"pP+J!U0W``WeUE1"
+-- "V9M1^\"pP>6!U0[4+9DZG\"o[m1km@V!L(T.@Plg(\\%Lr[D%LrNq2?T/fBa,%O%L7[t\"pP+*\"pP8A!!0Y@"
+-- "\"AcrVn;IJd)D_\"p*rhklIdgV?Mt\\TE>)n#$qK7\"pRg*!N(i*#kgKbok\"6i!Jb7r!pQOnAmQ`pXU\"re:"
+-- "\"N\"qCiM%LrNqKf4,Q\"s*fB\"pP+F2?E&.-6=ct\"s,Z\\klHqO\"pP84#IOT&!Q#$VJ-H2nR0Eir[/oLm("
+-- "\\0-[/n,K_?O$G\"pSB7q?@-Y\"p*rh!Ls>uks5LX\"pS*/<XGL\"\"p)^JklZeI\"pPhD\"8)\\h!Pem\\!g"
+-- "^TEGAt\\H9/?p]Zoa\"pP80V#fgI^]kPV(*3Y\\\"r76q\"p)1;!U0pqks>RY*Ynq\\\"r76q\"p)XH!P/aFU"
+-- "`mP\"!Q#$f!m1]O#\"AXX!S[XDl$*C:/fk2tJ1^l?]F*d(iW]Sf\"p*ri\"9nq)\"pP-p\"/Oa%!iC.[`<Wdb"
+-- "b!T=4e#64eh+s%$m\"pOu)!U3bl\\deoKJd)D[\"p*rh!Q-6*h$,J9/f$&?\"pQDE\"pP+;\"p*s\\!Sn5$(+"
+-- "g#e\"FO\"NCcAjp0H^HjJR:$AJbU#%.kj!nbp*\"pP+mklKVN[KY1^!Q#$L#akl$\\toGl\"q6Ln\"pP+F!U5"
+-- "n_M\"sO6\\#*PDZ$]Y8P\"PjHO>lj$mob7dg\"q-Fo!rW/8_?LC6$]YDl\"pScG!U3IM\"qCm/jUM=,!N$>2("
+-- "s\"p*rs!Sq&l\"qDI5\"pP+J!U0sF!h>ekYlWP_!!WoD(#]?$\"8)]Z!PemL!N,6\"%KY8f!N,6\"T`t],huW"
+-- "!e)\"p(S(kpkBkmPX81!QG<E21c#:!hBAV_?L.Gq?@-)h#Za\\\"p1AO\"pP+F!U1M[1lV[)!J^iEOSo?K,R"
+-- "#rG\"p)^J!U3bl!R__f\"pP*s\"p*t%!TFk!\"r7CY^]kQ+@Km#;!Ta@H!Q#$VJ-H2n#R1J6:0mtc\"pRk(:"
+-- "$\"pBqe\"gV)3`WcR+_?L2Fc2m0$XT?]J\\cLkC`W=@M\"p(\"jkr>CA\\HW6=p&XC\\\"pXl)\"pP+i!U2<"
+-- ",\"LSpE!U^-i\",`?Xh?*EL!O`[C%d\"4tmLFt(;?>&D#MK@d\"pP+m!U0aX!QkTN\"pP+m!U0]CK*EY,]d>"
+-- "-.N$fqDO!Q#%!\"-<]k\"k<Xc_?L4QM?X7c!U0Wrb/snmV?,o^\"r#r$\"pP+i!U1QM/trI8\"pS6hklI-^L"
+-- "/piV@Egd\"r7gP\"pP+J!U0WZkm.It#2L$q8cbe!!QG<Zl!ai$\"pPP<N>;Ph!N$>3PnjQ>\"r8$V\"pP+J("
+-- "1-6V@E`o*Wk-u\"p)LD!U1L,\"pP:F#/(%u!KR]p\\deoK?2YfF.06:e\"oo\\[!U0pq#f[4k#\"fGe!U0jo"
+-- "169Z5+bs!<s#8!SIY]\"/Q%_^]k.S#&2Ba%KY&p!Oi7;\"I]N!\"pP+m\"p*s*klH;=%G#(k%KX@g!J:Rl(+"
+-- "353j9+KHh#rH5,Qri,\"p=i/!NlW@!Q,%p26[8h\"GQsAjTZ\"cklq=m\"p*s>\"7?9J\"pP+G!TF4TN<7;j"
+-- "3Y#\"u-;d!U4P-!R\\:r*W`,J2?_POBa,U_^]l,;\"tg)\\-5HX<\"47l2!!*9N\"T8E*\"4[R?\"pOu!!U2"
+-- "5Y!U0Xi\"qCb.XUYBI!N$>Oh$+W!&-`=>\"on\\gPm2d@\"o\\<%kun8q63[Vp*X2Z0*Wb(,!Q50H\\deoK("
+-- "74\"J,YYVB,trbljmE!N$n=F,^=\"!N$!s\"Ju=!!TX9PXoa99!PemB\"8rA*!N$\"&\"Khq5[K`:&!PemB^"
+-- ":f&-3<?8jTYsIZ3CL6\"p*rjklcSB:+c_O2?j3\"\"p)VB%Nm)^2[@l&`Wem>dKTmV\"p*rlklJX*\"pQ+L("
+-- ":hQ!S[Xh22VSB\"pP+mk#DWBV?b?M\"p(S*%0d$f&((Rc\"pP+mklI]NmK]lq[Kb:j^&mEtTaS:3#2TOb\"p"
+-- "E#!L=E#+pJ(nkm.It=f\"\"W2?B[-#!!#+klKKBarU`f\"p(.nklS^+\"p)^E\"p(P)\"9nnP\"pP+BeH`K2"
+-- "EPorm/cC(!NlHR^&`s&\"sO6P!U0XiW3%>qr=f_DFL;4;`17SP%T`6(f`hWp\"p*rh\"9nn@\"pP+2o`>\"?"
+-- "EX!l!gWlD\"pQ7U!U0W9\"I0Lo)#Y.l!Peng0u\\Tb3!KQm\"pP+mL&pOQ.0]tX!WE9-!UToN!WE2/[0\"Se"
+-- "EY-h!k&./\"pQ7U!U0Z[-/Aj##(?T5km+KuJHNRd#$Nnj!U1F*ku\\,ofEMN\\3<A@L!KI9T\\-<.dD#rl)#"
+-- "I\"SE$)^]k2?rWg+;!Q#$K\"q1,/rW\\p-!PemIL(!\\Z\"p)UMiXChOq?@-)SH7t#\"q7X9\"pP+F!U1Dp%"
+-- "Pg\"sO6Q!U4\"s#dFR<!U0XL!QG=%$GcoN!mUi2\"t9`\\OoiW-`<\"cq!mUkk`<*.U!lb;c]a!j<!mUlBh?"
+-- "[5LD[$Cu\"tg)a\\deoKjoV+T[2G8LOf^eJ!N&$^WU1`rSH7dQ_?Na9\"pR6l7L$8\"\"p)LD!U0Xi!g0TS:"
+-- "e!Pem?!U^!NhZt9g!U^.d\"pP+X!U4dk0=_LG\"p*fi!OAF(o:5pH\"q@^9\"pP+FklI?d\"9!ZL[/m.R\"p"
+-- "gCW9`^@\\!Vlp(\"pP+m!U0XLhuODi\"oa)TkpclAPms#[!N$>0\"tfu5]e0?$!N%Jl!La2s\"pP+m!U0W:U"
+-- "js=!m]=#H3OQZ\"/Q%_!Pemd/d<*k\"ssB#\"p)1;!U0jo)pT8&!P/cLS-B0%%L*+<\"pP+f\"pP8A%KYQ!("
+-- "n_?LFgnHK0u!U0XRjoUh(!Q#$KmKQ4smfCoG$hacO\"pP+X!U5$t\"8rW,!N$8(%#,\"`\"p)RF%#t@sLq!K"
+-- "!Pem?p&Vl3\"p)UBBa+V+!VR2/\"p)LDkmEd^\"82p\"\"7@9a#DE9R\"85Fpp&Vr5p&k6qV#dFq\"p=i0L"
+-- "$(M!KI2CV@E^!SH5#W!N$>/\".]Ia\"p(S2kmH\\[p1ERj!QG<J2;/6=\"6BRJ!Q#%!!jMq6#0m86:4`kug"
+-- "$TE4pD%b\"pPM@!U0Wj\"s*lC(mb9=!RrG#[g!$XM?X7c\"p*rhklfE=T`t]%\"p*riklQG@!N$&%!L<imV"
+-- "%!KR]p!PnsE\"pP+m!U0WqN_T\\\\\"p(\"k!U1^2#/rba:*@5.4orM)##kd2!U2!:Ba.lJ4pB2C]k.;B!N"
+-- "%!Q#%9J-H3Q`?l?$ZgBXT_?Mn\"\"pQCT&dAP>:*p#+\"pb7;!U2lSjT]rV8-T8!&HDjr\"o\\?!l\"UD,C"
+-- "%KY&p!Oi7;krK\"Q#R1J6%L)su+p!<#!QG<Rkog68()@)T\"qC[i\"p)1;!P/aF\"pP89\"pP8A\"qCe7m1"
+-- "&\"Wgd!U2oT\"3LfP!VQQY\"t9`\\OoatTeHb1:!U^$)eH29U!VQT1!VO\\O!VTpGL&oR6\"sO6Q!U4k6!h"
+-- "(Q^jobkh.0]tWN<?!4!VQQ3!o2lO!TjQfp&VlA\"sO6PklgM\\m5?Qt!o4+a!Pemt!S?Ek\"p(SZklu\\C:"
+-- "*7LRKK\"tiagoen]/-3c@/\"u\\&&%Gk%g$&/Z8#)rZ$!Pemt!pkn)\"p(SZ!U2?D_aYsW:-Jj_#\"AX2W<"
+-- ".W;`>/pa\"pb:hknj1#O3J.8!SR_Y\"qCt8W<NP,\"p*s!kms]sY.Y;G!SR_Y\"qDUCQj*`p%KYep\"p0RN"
+-- "0im14pP!N$?,!m@\\U\"p(S2\"pPPA!U32\\.0]uO\"9r0:;70,`!U9iSe[5j@!Jb7g!r/<uAmQ`pV$I:%:"
+-- "2\"k\"8)\\l!Pem\\!Jg%`*W`,ZjT[Vpl37FnecG\"c(^:0F5`,aM1>Muq_?L+.Jd)D[\"p*sR!q$,EB%d:"
+-- ":f&\"p*rpkm-2Pap&%N\"p*rj$B>/$!QG=X\"p*Nq!R:_C`YJTmXqh3BD[$CHU.,0d\"pREq!U0aPgBn-;1"
+-- "=nAP#GhIc_?L%DaT_qM/HP):!Pemt_`eP7-8lV?2?r.VKiS3YV?)\\ZRK`rs\"p*rn\"9nqq\"pP.cXT>7I"
+-- ">K9\"p*H^klIF]8HoA\"!r`5b[4):ar[t;XTA:1_!NbAbeeA2b\"p9keJHc<&L&pN>V$7,+\"p4c)#IPubL"
+-- "?L#RC#<krK\"Q^TBBp!N%aV#!N+EeNO#LVEP$T@Km#;\"pP+m!U0X5jTZ83#R1J6*_lb#\"pb7K/g)c!2?f"
+-- "@\\C_ZH\\:\"p1(kR.XD_!Q:6(\"r%-)km=QuQ42=F#R9)e#0d2:\"sa6;kmGN:ecLj4#R9)c\"p+]-rWMm"
+-- "BkG!RqMF,PVHI!o3nA^]k4uPml4EV@;#XQ40ns#Qr$S%(6SI\"pb7;!LelM\"pP+mklZjTrW\\>_!Pem@r`"
+-- "E!N$V7\"s*i]\"pP+J!U0X3%0IpWs7$C-\\cr?BM?2rF!rA/j\"p*1Jkm$tg\"p1@s\"pQL\\!KmMMj,F;O"
+-- "EPoO\"Jl@\"L(jZk\"p)F=#R1JW\"pP+m\"p*sc!U2oTGm4Hg(^:0S!RM#T%V5\\*p&Vr5h$t2+-4Udl%KX"
+-- "EXR%XT=cR!fdAKScRsf\"sO6Qkln<r8HoA\"\"/#\\ZIXV?h\"Q9Oh->!;CV.Mss:*aEV##AhXkm!gc#Lt4"
+-- "EY-4!k&./\"pQ7U!U0f_\"c,&@\"pP*s!U0^6G5Z#R!S@9.!Q#%a<!EP=!oO7e!j2Rg!Mou)\"pP.+]`t;^"
+-- "Eb351!0\\)\"/Z+`!OW$4XodDb!PemA\"-itk!N#t%4Q6PL\"5X(C%KW?D\"5X(4jTZR3W<NP-V#ffa#OVZ"
+-- "F!%g\"l9C\\\"p)LD!M6:q6)=VH_?L>/a9DhLeH+ng\"q64g\"pP+FklK:kr]H/@!Q#$ENkko(V#ff^``8!"
+-- "F<P=#jqu,\"pQ7U!U1Q6)>+(1o`:p\"_?MnXT`t]%\"p*sMkoR&5!o=+^!Q,,U`Wa?d\"p)UG_ZnCUee?\""
+-- "FB>Smad&kLqWXO6YIT!<1K=6UD-R6\"c<ZoXcu\"Z%:!ptUC[a7Qp,d!;++fB1rQ.\"XKPF02QSSL#mffAR"
+-- "Fk35\\deoK!\"f23\"pP\"7klZeI##q2q\"p*4s\"q:cKklL>ZIU33ZFp7ub!Q+qm[g!%cOp2*krrM?ce34"
+-- "JT@\"pP+^klLJR`WfcNN<.N3_?Mn#l37Fnc2m/]q#]@V\"pP_D!U2>e9\"G32\"pP+mklJGk#)3<_!Q,*7L"
+-- "M$=.n/ck2V/csP)_(Gbc!TaM/#1s+a\"O[>8^&t#+\"p*0RkmjZsjoaH@#Q_=8\"6K[@joN7%jo^kN\"p(S"
+-- "NT/.!Q#$F\"pP+m!U0[6#$(uZ\"pP+F!U19G\"pP.3!knjfZfM;o^.@VmQ^&6d\"/O`RL(j]l\"p2L?Jd)E"
+-- "W#!P/aF!TdSk)$U9_\"pP+m!!2=%q#g^;\"pP81!U0i@\"4@AX!QG0)\"t9`\\\"9nnX,i&[tKbOR=r3ZUo"
+-- "W\"pP+J+T^hJ\"oo\\[klHYGRK`rs-3<?3V@E`o/csi0/ci`lVCm#)0J4[Q3!KRS\"pP+mV#fg8^]kPV*Wu"
+-- "Xg(!O6>C!QG<Zkm.It!<W<&\"o[clklM%njTZ1q[;uGA!P[Y#\"pPbOc2kKdV?`\\#!!0,2q$I-*\"qCh8("
+-- "Xg(E<1[r!QG<Zku\\,o$NpG1Q\"U^<\\H8E*S-$)\"TE2:uhuTVS\"pP81!U0a0\"qCa3\"8)]1!PemT(2j"
+-- "Y$L()A#F(,c>U!Oi7;h$+W!obJ;D-3c@0\"p*O$klS-p?9l1)\"p)RF!U3\\j!R_/VMEV(*!TaLf!icG/-r"
+-- "\"p*rkOo_uq\"p)F=!QHPm!Mou)!pp0AV%`s=`WGN4hSg00^(]T0!L=E#+pJ(n\"M+dA\"r77(\"r8ot\"p"
+-- "\"pP+m!U0Wb\"4@AX!M0>V\"t9`\\\"9nn0XocR\"\".^,,!M0Mg!NpS[\"pQ7U!U0Zk\"p*Fi\"pP+iScS"
+-- "`\"pP+m!TF.:joV]>!Pem?!TjF>\"pbCWkodhI[Kkmp!Q#$A*l8*c\"Q][K_?L%LM?X7c\"p*rtSS8:W\"p"
+-- "a1((LNLS_X>&SIQ,3&-`=>\"pP+m!!0Y@\"T8B*reL`C)?pBL\\dec*!TaLd!R_/V\"pP+m\"p):F!U32\\"
+-- "a1bm%b\\Af,Ro\"p)^JklJp2#%e&?%L*+H\"pP+>!U0WJ_e*3Zbm&%d#%ho]\"p)1;!U1F*#%e(!`F].d!N"
+-- "dk!U2oT[g!$P-jBkVPnjDb!N$>0\"s*j%N?/,9VB,hj*Yo\"^&dAO?\"pP+m\"p):N!U0jokqE;G\"pPP<("
+-- "p2\"p(e0klfZD/dHq.\"p)^JkmN%HL(r2>[/nPbD@QjOFqt8s%W2<b\"p)LDkmQ_[JHc;Z\"p*rt!Ls>u!U"
+-- "t=GP\"pP+mklJr[jou\"j\"p*]kksBt+\"rGkl!RqMN-3ak7`WcID_[G</k#]e.!Q#$K\"pPIl#)rYm^]k2"
+-- "!l(j$h#XB:^]m70U=D^6!N&<e+=8]Fi\\guFoaWk\\\"pP><!U0Wi\".9$&o`:p*_?M%b\"pPhD\"pP+;("
+-- "!pQgNf`@s6`WeU-nHK0u\"p*ri!P/aF\"pP,-!VQPjjXCB<rWA\\o#IP6H!VQVd!m&V#p&U?4!R;A[+pJ+"
+-- "#4_s&2HU\"E\"p)^Jklej-;?d=+\"pP+mK`U0s#\"AZs7Qpjg\"pbCWklRjh4t[$?\"pP+G9`a6C!Pen7:"
+-- "$,dl(Gran#>r740:fJiIOM.KD?U2\"6#r;7uZ*RaBiL-m0ZJ?IB=<$Ql_cIfQX>DZ5\":8EDocR=T#mKk#"
+-- "%4]!ibQ6\"pP+h!!2=,L(jXk\"pP81[K5V\"edggI\"8*lX!PemL%L/1.!KmJ\\!QG<Rkun8q\"p*fd\"p"
+-- "%\"pP81!U0`E#.b!C!l>!&`WcY@Jd)D[\"p*rm\"9nn`\"pP+R\"p*:(V#dCshC.Ig!kf9K!S/[\\PnW6n"
+-- ".`^V#ffb_?O<O!g9ql!Q#%Q#&X\\%rJ^ip_?P/bi<BJe\"p*ri!U3Gc##5An7Krn/\"p)VB!TIDi#bhM-("
+-- "1L#\"r8ODkle!jOp2*k\"p*rl!Ls>u0a7h?J-H39<0^Jb&cnk!\"ooE>klR:XWWiY.jT4TJ^]mP=<^$]g:"
+-- "2<BdM=/n!<t^i!KLQa\"p)RFkm5]A_?L2F\"p*rk!U0jo!SHd7n
